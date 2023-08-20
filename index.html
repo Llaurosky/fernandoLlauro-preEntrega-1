@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pre-Entrega Javascript</title>
     <link rel="stylesheet" href="css/style.css">
+    
 </head>
 <body>
 
@@ -21,21 +22,21 @@
     <div id="mesaVipSection">
         <p>¿Cuántas personas serán en tu mesa VIP?</p>
         <input type="number" id="cantidadPersonas" placeholder="Cantidad de personas">
-        <button id="elegirMesaBtn">Elegir Mesa</button>
+        <button id="elegirMesaBtn" disabled>Elegir Mesa</button>
     </div>
 
     <div id="opcionesBebidasSection">
         <p>Elige las bebidas para tu mesa:</p>
-        <select id="bebidasSelect">
+        <select id="bebidas">
             <option value="Cerveza">Cerveza</option>
             <option value="Champagne">Champagne</option>
             <option value="Semen de pitufo">Semen de pitufo</option>
             <option value="Agua">Agua</option>
         </select>
-        <button id="agregarBebidaBtn">Agregar Bebida</button>
-        <button id="quitarBebidaBtn">Quitar Bebida</button>
-        <button id="mostrarCarritoBtn">Mostrar Carrito</button>
-        <button id="calcularTotalBtn">Calcular Total y Finalizar Compra</button>
+        <button id="agregarBebidaBtn" disabled>Agregar Bebida</button>
+        <button id="quitarBebidaBtn" disabled>Quitar Bebida</button>
+        <button id="mostrarCarritoBtn" disabled>Mostrar Carrito</button>
+        <button id="calcularTotalBtn" disabled>Calcular Total y Finalizar Compra</button>
     </div>
 
     <div id="pedidoGuardado">
@@ -44,5 +45,6 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

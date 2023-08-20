@@ -13,7 +13,7 @@ let mesa = {
 
 const validarEdad = (edad) => {
     if (isNaN(edad)) {
-        alert("Tu edad, capo! Numeritos!.");
+        console.log("Tu edad, capo! Numeritos!.");
         return false;
     } else {
         return true;
@@ -24,9 +24,21 @@ const verificarEdad = () => {
     edad = parseInt(document.getElementById("edad").value);
     if (validarEdad(edad)) {
         if (edad > 17) {
+            document.getElementById("elegirMesaBtn").removeAttribute("disabled");
+            document.getElementById("agregarBebidaBtn").removeAttribute("disabled");
+            document.getElementById("quitarBebidaBtn").removeAttribute("disabled");
+            document.getElementById("mostrarCarritoBtn").removeAttribute("disabled");
+            document.getElementById("calcularTotalBtn").removeAttribute("disabled");
+
             document.getElementById("mesaVipSection");
         } else {
-            alert("No podes entrar, purrete!");
+            Swal.fire (
+                'Que haces acá?',
+                'No podes entrar, purrete! Anda a ver videitos',
+                'warning'
+            ).then(() => {
+                window.location.href = "https://www.youtubekids.com/?hl=es";
+            });
         }
     }
 }
@@ -35,49 +47,52 @@ const elegirMesa = () => {
     mesa.cantidadPersonas = parseInt(document.getElementById("cantidadPersonas").value);
     if (!isNaN(mesa.cantidadPersonas) && mesa.cantidadPersonas > 0) {
         if (mesa.cantidadPersonas < 4) {
-            alert("Lo siento, no es posible reservar una mesa para menos de 4 personas.");
+            console.log("Lo siento, no es posible reservar una mesa para menos de 4 personas.");
         } else if (mesa.cantidadPersonas > 15) {
             let opcionEnanos = confirm("¡Excelente! También tenemos la opción de enanos para grupos grandes. ¿Quieres considerar esta opción?");
             if (opcionEnanos) {
-                alert("Perfecto, te ofrecemos la opción de enanos para hacer tu experiencia aún más especial.");
+                console.log("Perfecto, te ofrecemos la opción de enanos para hacer tu experiencia aún más especial.");
             }
             document.getElementById("opcionesBebidasSection");
         } else {
             document.getElementById("opcionesBebidasSection");
         }
     } else {
-        alert("Ingresa una cantidad válida de personas.");
+        console.log("Ingresa una cantidad válida de personas.");
     }
 }
 
 const agregarBebida = () => {
-    let bebidaSeleccionada = document.getElementById("bebidasSelect").value;
+    let bebidaSeleccionada = document.getElementById("bebidas").value;
     let bebidaEncontrada = opcionesBebidas.find((opcion) => opcion.nombre === bebidaSeleccionada);
 
     if (bebidaEncontrada) {
         mesa.bebidas.push(bebidaEncontrada);
-        alert(`Has agregado ${bebidaSeleccionada} a tu mesa.`);
+        console.log(`Has agregado ${bebidaSeleccionada} a tu mesa.`);
+        guardarEnLocalStorage(); 
+        mostrarCarrito(); 
     } else {
-        alert("Bebida inválida.");
+        console.log("Bebida inválida.");
     }
 }
 
 const quitarBebida = () => {
-    let bebidaSeleccionada = document.getElementById("bebidasSelect").value;
+    let bebidaSeleccionada = document.getElementById("bebidas").value;
     let index = mesa.bebidas.findIndex((opcion) => opcion.nombre === bebidaSeleccionada);
 
     if (index !== -1) {
         mesa.bebidas.splice(index, 1);
-        alert(`Has quitado ${bebidaSeleccionada} de tu mesa.`);
+        console.log(`Has quitado ${bebidaSeleccionada} de tu mesa.`);
+        guardarEnLocalStorage(); 
+        mostrarCarrito(); 
     } else {
-        alert("No se encontró esa bebida en tu mesa.");
+        console.log("No se encontró esa bebida en tu mesa.");
     }
 }
 
 const mostrarCarrito = () => {
-    let carritoHTML = mesa.bebidas.map(bebida => bebida.nombre).join(', ');
-    document.getElementById("bebidaGuardada").textContent = carritoHTML;
-    document.getElementById("pedidoGuardado");
+    let carritoHTML = mesa.bebidas.map(bebida => `${bebida.nombre} - ${bebida.precio}`).join('<br>');
+    document.getElementById("bebidaGuardada").innerHTML = carritoHTML;
 }
 
 const calcularTotal = () => {
@@ -103,7 +118,7 @@ const cargarDesdeLocalStorage = () => {
 const confirmarPedido = () => {
     let total = calcularTotal();
     mostrarCarrito();
-    alert(`El total de tu mesa es: $${total}`);
+    console.log(`El total de tu mesa es: $${total}`);
     guardarEnLocalStorage();
 }
 
