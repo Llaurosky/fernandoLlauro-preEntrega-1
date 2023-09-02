@@ -1,3 +1,23 @@
 header {
     background-color: yellow;
 }
+
+.mesaNoReservada {
+    display: none;
+}
+
+#reservada {
+    color: red;
+}
+
+/* .visible {
+    display: block;
+}
+
+.oculto {
+    display: none;
+} */
+
+/* #pedidoGuardado {
+    display: none;
+} */

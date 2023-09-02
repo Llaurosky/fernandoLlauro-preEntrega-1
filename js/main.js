@@ -120,7 +120,24 @@ const confirmarPedido = () => {
     mostrarCarrito();
     console.log(`El total de tu mesa es: $${total}`);
     guardarEnLocalStorage();
+    
+    setTimeout(() => {
+        fetch("https://dolarapi.com/v1/dolares/blue")
+            .then(response => response.json())
+            .then(data => {
+                const precioDolar = data.oficial;
+                Swal.fire({
+                    title: "Campeón, está todo carísimo",
+                    html: `El precio del dólar oficial es: $${precioDolar}`,
+                    icon: "info",
+                });
+            })
+            .catch(error => {
+                console.error("Error al obtener el precio del dólar:", error);
+            });
+    }, 5000); 
 }
+
 
 // Event listeners
 document.getElementById("ingresarBtn").addEventListener("click", verificarEdad);
